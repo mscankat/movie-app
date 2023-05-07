@@ -1,15 +1,48 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Movies from "./Movies";
+import Search from "./Search";
+
+const api_key = "8eeaa71fd3c82618bcba075c2712eaf2";
+export async function getData(url: string): Promise<any> {
+  let result;
+  await fetch(url)
+    .then((data) => {
+      return data.json();
+    })
+    .then((arr) => {
+      result = arr;
+    });
+  return result;
+}
+export function generateKey() {
+  return crypto.randomUUID();
+}
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+  },
+  {
+    path: "/movies",
+    element: <Movies />,
+  },
+  {
+    path: "/search",
+    element: <Search api_key={api_key} />,
+  },
+]);
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
