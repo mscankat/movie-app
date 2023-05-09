@@ -6,21 +6,91 @@
 nav {
   color: #fff;
   display: flex;
-  height: 100px;
+  /* height: 100px; */
   background-color: #1e1e1f;
   align-items: center;
   justify-content: space-between;
+}
+.navbar-links {
+  flex: 1;
+}
+.navbar-links ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.navbar-links li {
+  list-style: none;
+}
+
+.nav-route {
+  text-decoration: none;
+  color: white;
+  padding: 1rem;
+  display: block;
+  border-radius: px;
+}
+
+.dropdown {
+  /* display: flex;
+  flex-direction: column; */
+  position: relative;
+}
+
+.dropdown:hover ul {
+  visibility: visible;
+  opacity: 1;
+}
+
+.dropdown ul {
+  position: absolute;
+  z-index: 1;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 10px;
+  background-color: #000000dc;
+  border-radius: 5px;
+  left: -10px;
+  padding: 25px;
+  width: max-content;
+  opacity: 0;
+  transition: opacity 100ms linear;
+}
+
+.dropdown ul li a {
+  text-decoration: none;
+  color: #e5e5ee;
+  opacity: 1;
+  font-weight: bold;
+  transition: backgroundcolor 200ms ease-in-out;
+  padding: 2px;
+}
+.dropdown ul li:hover a {
+  background-color: #e5e5ee;
+  color: #000000;
+  border-radius: 2px;
+}
+.dropdown ul li a {
+  text-decoration: none;
 }
 
 .logo {
   height: 50px;
   margin-left: 50px;
+  background-color: #e5e5ee;
+  padding: 10px;
+  border-radius: 20px;
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
-.dropdowns {
+nav-2 {
   display: flex;
-  gap: 200px;
-  font-size: 20px;
 }
 
 .search {
@@ -104,17 +174,13 @@ body {
 .grid-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 40px;
+  row-gap: 0px;
   padding: 30px;
   justify-content: center;
+  transition: 0.1s;
 }
 
-.image {
-  width: 250px;
-  border-radius: 20px;
-  height: 370px;
-  transition: 0.4s;
-}
 @media (min-width: 40rem) {
   .img-wrapper {
     width: 20%;
@@ -163,28 +229,36 @@ button {
 
 .img-wrapper {
   position: relative;
-  width: 270px;
-  height: 405px;
+  width: 300px;
+  height: 450px;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: opacity 1s, visibility 1s, 0.1s;
 }
-
+.image {
+  width: 270px;
+  border-radius: 20px;
+  height: 405px;
+  transition: 0.1s;
+}
 .overview {
   position: absolute;
-  top: 0;
+  /* top: 0;
   bottom: 0;
   right: 0;
-  left: 0;
+  left: 0; */
+  text-align: center;
   background-color: rgb(0, 0, 0);
   color: rgb(196, 196, 216);
   visibility: hidden;
   opacity: 0;
   border-radius: 20px;
-  width: 250px;
-  height: 370px;
-  transition: 1s;
-  transition: opacity 0.4s, visibility 0.4s;
+  width: 270px;
+  height: 405px;
+
+  transition: opacity 0.1s, visibility 2s,
+    cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s;
 }
 
 .hero-info {
@@ -231,13 +305,18 @@ button {
   z-index: 1;
 }
 
-.img-wrapper:hover .image,
-.img-wrapper,
-.overview {
-  width: 270px;
-  height: 405px;
+.img-wrapper:hover .image {
+  width: 300px;
+  height: 450px;
 }
-
+.img-wrapper:hover .img-wrapper {
+  width: 300px;
+  height: 450px;
+}
+.img-wrapper:hover .overview {
+  width: 300px;
+  height: 450px;
+}
 .overview {
   display: flex;
   flex-direction: column;
@@ -273,19 +352,22 @@ button {
 html {
   scrollbar-width: none;
 } */
+.text-overview::-webkit-scrollbar {
+  /* display: none; */
+  width: 0px !important;
+}
 
 .text-overview {
   color: #d6d1e0;
   font-size: 18px;
   overflow: scroll;
-  /* margin-left: 10px;
-  margin-bottom: 10px; */
-  /* border: 1px solid wheat; */
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   background-color: rgba(255, 255, 255, 0.062);
-  padding: 10px;
+  padding: 20px;
   height: 100%;
+  width: 260px;
+  height: 278px;
   scrollbar-width: none;
 }
 
@@ -298,4 +380,31 @@ html {
 }
 .genre > span {
   text-align: center;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+.genre-select-container ul {
+  color: #000000;
+  display: flex;
+  list-style-type: none;
+  justify-content: space-evenly;
+  padding: 20px;
+  background-color: #d6d1e0;
+  font-weight: bold;
+}
+.genre-select-container ul li {
+  transition: color 100ms;
+}
+
+.genre-select-container ul li:hover {
+  color: #3e3e46;
+  cursor: pointer;
+}
+
+button {
+  text-decoration: none;
 }

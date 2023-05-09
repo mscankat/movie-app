@@ -2,24 +2,32 @@ import { useState } from "react";
 import Card from "./Card";
 import Footer from "./Footer";
 import Nav from "./Nav";
-import { generateKey } from "./index";
-function Movies() {
+
+function TvShows() {
   const [propUrl, setPropUrl] = useState<string[]>([]);
   const [lastReq, setLastReq] = useState<string>("");
   const [genreName, setGenreName] = useState<string>("");
 
   const template =
-    "https://api.themoviedb.org/3/discover/movie?api_key=8eeaa71fd3c82618bcba075c2712eaf2&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=35&with_watch_monetization_types=flatrate";
+    "https://api.themoviedb.org/3/discover/tv?api_key=8eeaa71fd3c82618bcba075c2712eaf2&language=en-US&sort_by=popularity.desc&page=1&with_genres=35";
   const comedyUrl =
-    "https://api.themoviedb.org/3/discover/movie?api_key=8eeaa71fd3c82618bcba075c2712eaf2&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=35&with_watch_monetization_types=flatrate";
+    "https://api.themoviedb.org/3/discover/tv?api_key=8eeaa71fd3c82618bcba075c2712eaf2&language=en-US&sort_by=popularity.desc&page=1&with_genres=35";
   const actionUrl =
-    "https://api.themoviedb.org/3/discover/movie?api_key=8eeaa71fd3c82618bcba075c2712eaf2&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=28&with_watch_monetization_types=flatrate";
+    "https://api.themoviedb.org/3/discover/tv?api_key=8eeaa71fd3c82618bcba075c2712eaf2&language=en-US&sort_by=popularity.desc&page=1&with_genres=10759";
   const scienceUrl =
-    "https://api.themoviedb.org/3/discover/movie?api_key=8eeaa71fd3c82618bcba075c2712eaf2&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=878&with_watch_monetization_types=flatrate";
+    "https://api.themoviedb.org/3/discover/tv?api_key=8eeaa71fd3c82618bcba075c2712eaf2&language=en-US&sort_by=popularity.desc&page=1&with_genres=10765";
 
   function handleClick(e: any) {
     const urlGenre = new URL(template);
-    setGenreName(e.target.innerHTML);
+    if (e.target.innerHTML.includes(" ")) {
+      setGenreName(
+        e.target.innerHTML.split(" ")[0] +
+          " & " +
+          e.target.innerHTML.split(" ").pop()
+      );
+    } else {
+      setGenreName(e.target.innerHTML);
+    }
 
     e.preventDefault();
     switch (e.target.innerHTML) {
@@ -27,43 +35,39 @@ function Movies() {
         urlGenre.searchParams.set("with_genres", "35");
         setPropUrl([urlGenre.href]);
         break;
-      case "Action":
-        urlGenre.searchParams.set("with_genres", "28");
+      case "Action &amp; Adventure":
+        urlGenre.searchParams.set("with_genres", "10759");
         setPropUrl([urlGenre.href]);
         break;
-      case "Adventure":
-        urlGenre.searchParams.set("with_genres", "12");
+      case "Reality":
+        urlGenre.searchParams.set("with_genres", "10764");
         setPropUrl([urlGenre.href]);
         break;
-      case "Science Fiction":
-        urlGenre.searchParams.set("with_genres", "878");
+      case "Sci-Fi &amp; Fantasy":
+        urlGenre.searchParams.set("with_genres", "10765");
         setPropUrl([urlGenre.href]);
         break;
-      case "Horror":
-        urlGenre.searchParams.set("with_genres", "27");
+      case "Animation":
+        urlGenre.searchParams.set("with_genres", "16");
         setPropUrl([urlGenre.href]);
         break;
-      case "Romance":
-        urlGenre.searchParams.set("with_genres", "10749");
+      case "Crime":
+        urlGenre.searchParams.set("with_genres", "80");
         setPropUrl([urlGenre.href]);
         break;
-      case "Fantasy":
-        urlGenre.searchParams.set("with_genres", "14");
+      case "Documantary":
+        urlGenre.searchParams.set("with_genres", "99");
         setPropUrl([urlGenre.href]);
         break;
       case "Drama":
         urlGenre.searchParams.set("with_genres", "18");
         setPropUrl([urlGenre.href]);
         break;
-      case "Thriller":
-        urlGenre.searchParams.set("with_genres", "53");
-        setPropUrl([urlGenre.href]);
-        break;
     }
     // if (e.target.innerHTML === "Comedy") {
     //   setPropUrl([...propUrl, template]);
     // }
-    console.log(e.target.innerHTML);
+    // console.log(e.target.);
     setLastReq(template);
   }
   function handleMore(e: any) {
@@ -79,30 +83,29 @@ function Movies() {
       <Nav />
       <div className="genre-select-container">
         <ul>
-          <li onClick={handleClick}>Action</li>
-          <li onClick={handleClick}>Adventure</li>
+          <li onClick={handleClick}>Action & Adventure</li>
+          <li onClick={handleClick}>Reality</li>
           <li onClick={handleClick}>Comedy</li>
+          <li onClick={handleClick}>Animation</li>
+          <li onClick={handleClick}>Crime</li>
+          <li onClick={handleClick}>Documantary</li>
+          <li onClick={handleClick}>Sci-Fi & Fantasy</li>
           <li onClick={handleClick}>Drama</li>
-          <li onClick={handleClick}>Fantasy</li>
-          <li onClick={handleClick}>Horror</li>
-          <li onClick={handleClick}>Science Fiction</li>
-          <li onClick={handleClick}>Romance</li>
-          <li onClick={handleClick}>Thriller</li>
         </ul>
       </div>
       {propUrl.length === 0 && (
         <>
-          <div className="title">Action</div>
+          <div className="title">Action & Adventure</div>
           <div className="grid-container">
-            <Card propUrl={actionUrl} mediaType="movie" toShow={5} />{" "}
+            <Card propUrl={actionUrl} mediaType="tv" toShow={5} />{" "}
           </div>
           <div className="title">Comedy</div>
           <div className="grid-container">
-            <Card propUrl={comedyUrl} mediaType="movie" toShow={5} />{" "}
+            <Card propUrl={comedyUrl} mediaType="tv" toShow={5} />{" "}
           </div>
           <div className="title">Science Fiction</div>
           <div className="grid-container">
-            <Card propUrl={scienceUrl} mediaType="movie" toShow={5} />{" "}
+            <Card propUrl={scienceUrl} mediaType="tv" toShow={5} />{" "}
           </div>
         </>
       )}
@@ -112,7 +115,7 @@ function Movies() {
           propUrl.map((current, index) => {
             console.log("i do");
             return (
-              <Card key={current[index]} mediaType="movie" propUrl={current} />
+              <Card key={current[index]} mediaType="tv" propUrl={current} />
             );
           })}
       </div>
@@ -124,4 +127,4 @@ function Movies() {
   );
 }
 
-export default Movies;
+export default TvShows;

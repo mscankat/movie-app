@@ -18,11 +18,11 @@ function Home({ imagePath, mediaType }: Props) {
       <div className="row">
         <div className="title">New</div>
         <div className="grid-container">
-          <Card propUrl={upcomingURL} mediaType={mediaType[0]} />
+          <Card propUrl={upcomingURL} mediaType={mediaType[0]} toShow={5} />
         </div>
         <div className="title">Trending</div>
         <div className="grid-container">
-          <Card propUrl={trendingURL} mediaType={mediaType[0]} />
+          <Card propUrl={trendingURL} mediaType={mediaType[0]} toShow={5} />
         </div>
       </div>
     </>

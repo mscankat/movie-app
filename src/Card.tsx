@@ -1,12 +1,14 @@
 import { generateKey } from "./index";
 import { useEffect, useState } from "react";
 import { getData } from "./index";
+import notfound from "./icons/poster-not-found.jpg";
 interface Props {
   propUrl: string;
   mediaType: string;
+  toShow?: number;
 }
 
-function Card({ propUrl, mediaType }: Props) {
+function Card({ propUrl, mediaType, toShow }: Props) {
   interface response {
     title: string;
     overview: string;
@@ -15,6 +17,7 @@ function Card({ propUrl, mediaType }: Props) {
     genre_ids: number[];
     release_date: string;
     name: string;
+    first_air_date?: string;
   }
   interface genreObject {
     id: number;
@@ -42,7 +45,7 @@ function Card({ propUrl, mediaType }: Props) {
           return x;
         }
       });
-      setResponse(filtered.slice(0, 12));
+      setResponse(filtered.slice(0, toShow));
     });
     getData(genreUrlMovie).then((arr) => {
       setGenreListMovie(arr.genres);
@@ -83,7 +86,11 @@ function Card({ propUrl, mediaType }: Props) {
             <div className="img-wrapper" key={generateKey()}>
               <img
                 className="image"
-                src={`https://image.tmdb.org/t/p/original/${current.poster_path}`}
+                src={
+                  current.poster_path
+                    ? `https://image.tmdb.org/t/p/original/${current.poster_path}`
+                    : notfound
+                }
                 alt=""
               />
               <div className="overview">
@@ -100,7 +107,9 @@ function Card({ propUrl, mediaType }: Props) {
                     })}
                   </span>
                   <span className="date">
-                    {current.release_date && current.release_date.split("-")[0]}
+                    {(current.release_date &&
+                      current.release_date.split("-")[0]) ||
+                      current.first_air_date?.split("-")[0]}
                   </span>
                 </div>
                 <p className="text-overview">{current.overview}</p>
