@@ -104,8 +104,10 @@ nav-2 {
 .hero-container {
   margin: 0 400px 0 50px;
 }
-body {
+body,
+html {
   background-color: #000000;
+  height: 100%;
 }
 .background {
   background-color: black;
@@ -407,4 +409,17 @@ html {
 
 button {
   text-decoration: none;
+}
+
+#error-page {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 10%;
+  background-color: #d6d1e0;
+}
+#root {
+  height: 100%;
 }

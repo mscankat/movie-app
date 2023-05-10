@@ -6,15 +6,14 @@ import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Movies from "./Movies";
 import Search from "./Search";
-import path from "path";
 import TvShows from "./TvShows";
-import Home from "./Home";
 import Trending from "./Trending";
 import Upcoming from "./Upcoming";
 import Top from "./Top";
 import TvTrending from "./TvTrending";
 import TvUpcoming from "./TvUpcoming";
 import TvTop from "./TvTop";
+import Error from "./Error";
 
 const api_key = "8eeaa71fd3c82618bcba075c2712eaf2";
 const imagePath = "https://image.tmdb.org/t/p/original";
@@ -42,6 +41,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <Error />,
   },
   {
     path: "/movies",
