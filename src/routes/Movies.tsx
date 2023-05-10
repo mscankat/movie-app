@@ -2,10 +2,8 @@ import { useState } from "react";
 import Card from "../Card";
 import Footer from "../Footer";
 import Nav from "../Nav";
-import expand from "../icons/expand.png";
 function Movies() {
-  const [propUrl, setPropUrl] = useState<string[]>([]);
-  const [lastReq, setLastReq] = useState<string>("");
+  const [propUrl, setPropUrl] = useState<string>("");
   const [genreName, setGenreName] = useState<string>("");
 
   const template =
@@ -25,55 +23,44 @@ function Movies() {
     switch (e.target.innerHTML) {
       case "Comedy":
         urlGenre.searchParams.set("with_genres", "35");
-        setPropUrl([urlGenre.href]);
+        setPropUrl(urlGenre.href);
         break;
       case "Action":
         urlGenre.searchParams.set("with_genres", "28");
-        setPropUrl([urlGenre.href]);
+        setPropUrl(urlGenre.href);
         break;
       case "Adventure":
         urlGenre.searchParams.set("with_genres", "12");
-        setPropUrl([urlGenre.href]);
+        setPropUrl(urlGenre.href);
         break;
       case "Science Fiction":
         urlGenre.searchParams.set("with_genres", "878");
-        setPropUrl([urlGenre.href]);
+        setPropUrl(urlGenre.href);
         break;
       case "Horror":
         urlGenre.searchParams.set("with_genres", "27");
-        setPropUrl([urlGenre.href]);
+        setPropUrl(urlGenre.href);
         break;
       case "Romance":
         urlGenre.searchParams.set("with_genres", "10749");
-        setPropUrl([urlGenre.href]);
+        setPropUrl(urlGenre.href);
         break;
       case "Fantasy":
         urlGenre.searchParams.set("with_genres", "14");
-        setPropUrl([urlGenre.href]);
+        setPropUrl(urlGenre.href);
         break;
       case "Drama":
         urlGenre.searchParams.set("with_genres", "18");
-        setPropUrl([urlGenre.href]);
+        setPropUrl(urlGenre.href);
         break;
       case "Thriller":
         urlGenre.searchParams.set("with_genres", "53");
-        setPropUrl([urlGenre.href]);
+        setPropUrl(urlGenre.href);
         break;
     }
-    // if (e.target.innerHTML === "Comedy") {
-    //   setPropUrl([...propUrl, template]);
-    // }
     console.log(e.target.innerHTML);
-    setLastReq(template);
   }
-  function handleMore(e: any) {
-    e.preventDefault();
-    const url = new URL(lastReq);
-    const pageNumber = Number(url.searchParams.get("page")) || 0;
-    url.searchParams.set("page", (pageNumber + 1).toString());
-    setPropUrl([...propUrl, url.href]);
-    setLastReq(url.href);
-  }
+
   return (
     <>
       {" "}
@@ -94,35 +81,34 @@ function Movies() {
         </div>
         {propUrl.length === 0 && (
           <>
-            <div className="title">Action</div>
-            <div className="grid-container">
-              <Card propUrl={actionUrl} mediaType="movie" toShow={5} />{" "}
-            </div>
-            <div className="title">Comedy</div>
-            <div className="grid-container">
-              <Card propUrl={comedyUrl} mediaType="movie" toShow={5} />{" "}
-            </div>
-            <div className="title">Science Fiction</div>
-            <div className="grid-container">
-              <Card propUrl={scienceUrl} mediaType="movie" toShow={5} />{" "}
-            </div>
+            <Card
+              propUrl={actionUrl}
+              mediaType="movie"
+              toShow={5}
+              title="Action"
+            />
+            <Card
+              propUrl={comedyUrl}
+              mediaType="movie"
+              toShow={5}
+              title="Comedy"
+            />
+            <Card
+              propUrl={scienceUrl}
+              mediaType="movie"
+              toShow={5}
+              title="Science Fiction"
+            />
           </>
         )}
-        <div className="title">{genreName}</div>
-        <div className="grid-container">
-          {propUrl.length > 0 &&
-            propUrl.map((current, index) => {
-              console.log("i do");
-              return (
-                <Card
-                  key={current[index]}
-                  mediaType="movie"
-                  propUrl={current}
-                />
-              );
-            })}
-        </div>
-        <img className="btn-more" onClick={handleMore} src={expand} />
+        {propUrl.length > 0 && (
+          <Card
+            title={genreName}
+            mediaType="movie"
+            propUrl={propUrl}
+            moreButton={true}
+          />
+        )}
         <Footer />{" "}
       </div>
     </>

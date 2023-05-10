@@ -32,7 +32,7 @@ const renderArrowNext = (
       className="arrow-right"
     ></button>
   );
-//for styling purposes
+//
 
 interface props {
   imagePath: string;
@@ -66,7 +66,7 @@ function Hero({ imagePath }: props) {
       renderArrowNext={renderArrowNext}
       renderArrowPrev={renderArrowPrev}
       infiniteLoop={true}
-      autoPlay={false}
+      autoPlay={true}
       emulateTouch={true}
     >
       {hero.map((current) => {

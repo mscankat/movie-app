@@ -1,35 +1,30 @@
 import movie from "./icons/movie.png";
 import search from "./icons/search.png";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 
-interface Props {
-  setSearchQ?: React.Dispatch<React.SetStateAction<string[]>>;
-  searchQ?: string[];
-}
-
-function Nav({ setSearchQ, searchQ }: Props) {
+function Nav() {
   const [usrInput, setUsrInput] = useState("");
-  //search
 
   let navigate = useNavigate();
   let [searchParams, setSearchParams] = useSearchParams();
   let location = useLocation();
+
   function handleSubmit(e: any) {
     e.preventDefault();
     let params = { q: usrInput };
     if (!location.pathname.includes("search")) {
       return navigate(`/search?q=${params.q}`);
     }
-
     console.log(usrInput);
     setSearchParams(params);
-    let searchPath = `https://api.themoviedb.org/3/search/multi?api_key=8eeaa71fd3c82618bcba075c2712eaf2&language=en-US&page=1&query=${usrInput}&include_adult=false`;
-    setSearchQ?.([searchPath]);
   }
+  //for search button
+  const ref: any = useRef(null);
   const [show, setShow] = useState(false);
   function handleClick() {
     setShow((c) => !c);
+    ref.current && ref.current.focus();
   }
 
   return (
@@ -87,6 +82,7 @@ function Nav({ setSearchQ, searchQ }: Props) {
             onSubmit={handleSubmit}
           >
             <input
+              ref={ref}
               className="search-input"
               type="text"
               placeholder="Search"

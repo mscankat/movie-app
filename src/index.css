@@ -194,8 +194,11 @@ html {
 .row {
   background-color: rgb(30, 30, 31);
 }
-
+* {
+  box-sizing: border-box;
+}
 .title {
+  box-sizing: border-box;
   padding: 50px;
   font-size: 40px;
 
@@ -208,7 +211,7 @@ footer > img {
 }
 footer {
   background-color: rgba(30, 30, 31, 0.781);
-  padding: 50px;
+  padding: 50px 0 50px 0;
   display: flex;
   gap: 20px;
   flex-direction: column;
@@ -233,7 +236,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: opacity 1s, visibility 1s, 0.1s;
+  transition: opacity 1s, visibility 1s, 0.1s, position 5s;
 }
 .image {
   width: 270px;
@@ -365,8 +368,7 @@ html {
   background-color: rgba(255, 255, 255, 0.062);
   padding: 20px;
   height: 100%;
-  width: 260px;
-  height: 278px;
+  width: 100%;
   scrollbar-width: none;
 }
 
@@ -430,8 +432,8 @@ button {
 
 .search-form {
   position: relative;
-  width: 40px;
-  height: 40px;
+  width: 55px;
+  height: 55px;
   background-color: #d6d1e0;
   box-shadow: 0 4px 24px hsla(222, 68%, 12%, 0.1);
   border-radius: 2rem;

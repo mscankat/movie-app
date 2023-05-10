@@ -1,4 +1,3 @@
-import { getData } from "./index";
 import Hero from "./Hero";
 import Card from "./Card";
 
@@ -16,14 +15,19 @@ function Home({ imagePath, mediaType }: Props) {
     <>
       <Hero imagePath={imagePath} />
       <div className="row">
-        <div className="title">New</div>
-        <div className="grid-container">
-          <Card propUrl={upcomingURL} mediaType={mediaType[0]} toShow={5} />
-        </div>
-        <div className="title">Trending</div>
-        <div className="grid-container">
-          <Card propUrl={trendingURL} mediaType={mediaType[0]} toShow={5} />
-        </div>
+        <Card
+          propUrl={upcomingURL}
+          mediaType={mediaType[0]}
+          toShow={5}
+          title="Upcoming"
+        />
+
+        <Card
+          propUrl={trendingURL}
+          mediaType={mediaType[0]}
+          toShow={5}
+          title="Trending"
+        />
       </div>
     </>
   );

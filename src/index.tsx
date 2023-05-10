@@ -62,7 +62,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/search",
-    element: <Search api_key={api_key} />,
+    element: <Search />,
   },
   {
     path: "/tv",

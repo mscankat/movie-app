@@ -1,37 +1,22 @@
-import { useState } from "react";
 import Nav from "../Nav";
 import Card from "../Card";
 import Footer from "../Footer";
-import expand from "../icons/expand.png";
 
 function TvTop() {
   const topRatedURL =
     "   https://api.themoviedb.org/3/tv/top_rated?api_key=8eeaa71fd3c82618bcba075c2712eaf2&language=en-US&page=1";
-  const [searchQ, setSearchQ] = useState<string[]>([topRatedURL]);
-  function handleClick(e: any) {
-    e.preventDefault();
-    const pageParam =
-      new URL(searchQ[searchQ.length - 1]).searchParams.get("page") || 0;
-    let moreReq = ` https://api.themoviedb.org/3/tv/top_rated?api_key=8eeaa71fd3c82618bcba075c2712eaf2&language=en-US&page=${
-      Number(pageParam) + 1
-    }`;
-    setSearchQ([...searchQ, moreReq]);
-  }
+
   return (
     <>
-      {" "}
       <div className="main">
         <Nav />
-        <div className="title">Top Rated Tv Shows</div>
-        <div className="grid-container">
-          {searchQ.map((current, index) => {
-            return (
-              <Card key={current[index]} propUrl={current} mediaType="tv" />
-            );
-          })}
-        </div>
-        <img className="btn-more" onClick={handleClick} src={expand} />
-        <Footer />{" "}
+        <Card
+          propUrl={topRatedURL}
+          mediaType="movie"
+          moreButton={true}
+          title="Top Rated Movies"
+        />
+        <Footer />
       </div>
     </>
   );
