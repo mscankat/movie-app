@@ -1,7 +1,8 @@
 import { useState } from "react";
-import Card from "./Card";
-import Nav from "./Nav";
-import Footer from "./Footer";
+import Card from "../Card";
+import Nav from "../Nav";
+import Footer from "../Footer";
+import expand from "../icons/expand.png";
 
 function Upcoming() {
   const upcomingURL =
@@ -18,19 +19,21 @@ function Upcoming() {
   }
   return (
     <>
-      <Nav />
-      <div className="title">Upcoming & New Movies</div>
-      <div className="grid-container">
-        {searchQ.map((current, index) => {
-          return (
-            <Card key={current[index]} propUrl={current} mediaType="movie" />
-          );
-        })}
+      {" "}
+      <div className="main">
+        <Nav />
+        <div className="title">Upcoming & New Movies</div>
+        <div className="grid-container">
+          {searchQ.map((current, index) => {
+            return (
+              <Card key={current[index]} propUrl={current} mediaType="movie" />
+            );
+          })}
+        </div>
+        <img className="btn-more" onClick={handleClick} src={expand} />
+
+        <Footer />
       </div>
-      <button className="btn-more" onClick={handleClick}>
-        Weiter
-      </button>
-      <Footer />
     </>
   );
 }

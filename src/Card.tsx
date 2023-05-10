@@ -4,7 +4,7 @@ import { getData } from "./index";
 import notfound from "./icons/poster-not-found.jpg";
 interface Props {
   propUrl: string;
-  mediaType: string;
+  mediaType?: string;
   toShow?: number;
 }
 
@@ -55,13 +55,15 @@ function Card({ propUrl, mediaType, toShow }: Props) {
     });
     console.log(propUrl);
   }, [propUrl]);
-
+  const pageUrl = new URL(propUrl);
+  if (response.length === 0 && pageUrl.searchParams.get("page") === "1") {
+    console.log(response);
+    return <h1 className="no-result">No Result</h1>;
+  }
   return (
     <>
       {response.length > 0 &&
-        genreListMovie.length > 0 &&
-        genreListTV.length > 0 &&
-        response.map((current) => {
+        response.map((current, index) => {
           //get and combine genres
           let genreText: string[] = [];
           // console.log(current.media_type);
@@ -117,6 +119,7 @@ function Card({ propUrl, mediaType, toShow }: Props) {
             </div>
           );
         })}
+      {}
     </>
   );
 }

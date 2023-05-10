@@ -1,7 +1,8 @@
 import { useState } from "react";
-import Nav from "./Nav";
-import Card from "./Card";
-import Footer from "./Footer";
+import Nav from "../Nav";
+import Card from "../Card";
+import Footer from "../Footer";
+import expand from "../icons/expand.png";
 
 function TvTop() {
   const topRatedURL =
@@ -18,17 +19,20 @@ function TvTop() {
   }
   return (
     <>
-      <Nav />
-      <div className="title">Top Rated Tv Shows</div>
-      <div className="grid-container">
-        {searchQ.map((current, index) => {
-          return <Card key={current[index]} propUrl={current} mediaType="tv" />;
-        })}
+      {" "}
+      <div className="main">
+        <Nav />
+        <div className="title">Top Rated Tv Shows</div>
+        <div className="grid-container">
+          {searchQ.map((current, index) => {
+            return (
+              <Card key={current[index]} propUrl={current} mediaType="tv" />
+            );
+          })}
+        </div>
+        <img className="btn-more" onClick={handleClick} src={expand} />
+        <Footer />{" "}
       </div>
-      <button className="btn-more" onClick={handleClick}>
-        Weiter
-      </button>
-      <Footer />
     </>
   );
 }

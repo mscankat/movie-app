@@ -1,10 +1,9 @@
-import { useLocation, useSearchParams } from "react-router-dom";
-import { getData } from "./index";
+import expand from "./icons/expand.png";
+import { useSearchParams } from "react-router-dom";
 import Card from "./Card";
 import Nav from "./Nav";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Footer from "./Footer";
-import { generateKey } from "./index";
 interface Props {
   api_key: String;
 }
@@ -12,7 +11,6 @@ const mediaType = ["movie", "TV Series"];
 
 function Search({ api_key }: Props) {
   let [searchParams, setSearchParams] = useSearchParams();
-  const [page, setPage] = useState(1);
 
   const query = searchParams.get("q");
   let searchPath = `https://api.themoviedb.org/3/search/multi?api_key=8eeaa71fd3c82618bcba075c2712eaf2&language=en-US&page=1&query=${query}&include_adult=false`;
@@ -31,19 +29,17 @@ function Search({ api_key }: Props) {
 
   return (
     <>
-      <Nav setSearchQ={setSearchQ} searchQ={searchQ} />
-      <div className="title">Results</div>
-      <div className="grid-container">
-        {searchQ.map((current) => {
-          return (
-            <Card key={generateKey()} propUrl={current} mediaType={"movie"} />
-          );
-        })}
+      <div className="main">
+        <Nav setSearchQ={setSearchQ} searchQ={searchQ} />
+        <div className="title">Results</div>
+        <div className="grid-container">
+          {searchQ.map((current, index) => {
+            return <Card key={current[index]} propUrl={current} />;
+          })}
+        </div>
+        <img className="btn-more" onClick={handleClick} src={expand} />
+        <Footer />
       </div>
-      <button className="btn-more" onClick={handleClick}>
-        Weiter
-      </button>
-      <Footer />
     </>
   );
 }

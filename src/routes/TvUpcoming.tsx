@@ -1,7 +1,8 @@
 import { useState } from "react";
-import Card from "./Card";
-import Nav from "./Nav";
-import Footer from "./Footer";
+import Card from "../Card";
+import Nav from "../Nav";
+import Footer from "../Footer";
+import expand from "../icons/expand.png";
 
 function TvUpcoming() {
   const upcomingURL =
@@ -18,17 +19,20 @@ function TvUpcoming() {
   }
   return (
     <>
-      <Nav />
-      <div className="title">Upcoming & New Tv Shows</div>
-      <div className="grid-container">
-        {searchQ.map((current, index) => {
-          return <Card key={current[index]} propUrl={current} mediaType="tv" />;
-        })}
+      {" "}
+      <div className="main">
+        <Nav />
+        <div className="title">Upcoming & New Tv Shows</div>
+        <div className="grid-container">
+          {searchQ.map((current, index) => {
+            return (
+              <Card key={current[index]} propUrl={current} mediaType="tv" />
+            );
+          })}
+        </div>
+        <img className="btn-more" onClick={handleClick} src={expand} />
+        <Footer />{" "}
       </div>
-      <button className="btn-more" onClick={handleClick}>
-        Weiter
-      </button>
-      <Footer />
     </>
   );
 }

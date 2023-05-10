@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Card from "./Card";
-import Footer from "./Footer";
-import Nav from "./Nav";
-import { generateKey } from "./index";
+import Card from "../Card";
+import Footer from "../Footer";
+import Nav from "../Nav";
+import expand from "../icons/expand.png";
 function Movies() {
   const [propUrl, setPropUrl] = useState<string[]>([]);
   const [lastReq, setLastReq] = useState<string>("");
@@ -76,50 +76,55 @@ function Movies() {
   }
   return (
     <>
-      <Nav />
-      <div className="genre-select-container">
-        <ul>
-          <li onClick={handleClick}>Action</li>
-          <li onClick={handleClick}>Adventure</li>
-          <li onClick={handleClick}>Comedy</li>
-          <li onClick={handleClick}>Drama</li>
-          <li onClick={handleClick}>Fantasy</li>
-          <li onClick={handleClick}>Horror</li>
-          <li onClick={handleClick}>Science Fiction</li>
-          <li onClick={handleClick}>Romance</li>
-          <li onClick={handleClick}>Thriller</li>
-        </ul>
+      {" "}
+      <div className="main">
+        <Nav />
+        <div className="genre-select-container">
+          <ul>
+            <li onClick={handleClick}>Action</li>
+            <li onClick={handleClick}>Adventure</li>
+            <li onClick={handleClick}>Comedy</li>
+            <li onClick={handleClick}>Drama</li>
+            <li onClick={handleClick}>Fantasy</li>
+            <li onClick={handleClick}>Horror</li>
+            <li onClick={handleClick}>Science Fiction</li>
+            <li onClick={handleClick}>Romance</li>
+            <li onClick={handleClick}>Thriller</li>
+          </ul>
+        </div>
+        {propUrl.length === 0 && (
+          <>
+            <div className="title">Action</div>
+            <div className="grid-container">
+              <Card propUrl={actionUrl} mediaType="movie" toShow={5} />{" "}
+            </div>
+            <div className="title">Comedy</div>
+            <div className="grid-container">
+              <Card propUrl={comedyUrl} mediaType="movie" toShow={5} />{" "}
+            </div>
+            <div className="title">Science Fiction</div>
+            <div className="grid-container">
+              <Card propUrl={scienceUrl} mediaType="movie" toShow={5} />{" "}
+            </div>
+          </>
+        )}
+        <div className="title">{genreName}</div>
+        <div className="grid-container">
+          {propUrl.length > 0 &&
+            propUrl.map((current, index) => {
+              console.log("i do");
+              return (
+                <Card
+                  key={current[index]}
+                  mediaType="movie"
+                  propUrl={current}
+                />
+              );
+            })}
+        </div>
+        <img className="btn-more" onClick={handleMore} src={expand} />
+        <Footer />{" "}
       </div>
-      {propUrl.length === 0 && (
-        <>
-          <div className="title">Action</div>
-          <div className="grid-container">
-            <Card propUrl={actionUrl} mediaType="movie" toShow={5} />{" "}
-          </div>
-          <div className="title">Comedy</div>
-          <div className="grid-container">
-            <Card propUrl={comedyUrl} mediaType="movie" toShow={5} />{" "}
-          </div>
-          <div className="title">Science Fiction</div>
-          <div className="grid-container">
-            <Card propUrl={scienceUrl} mediaType="movie" toShow={5} />{" "}
-          </div>
-        </>
-      )}
-      <div className="title">{genreName}</div>
-      <div className="grid-container">
-        {propUrl.length > 0 &&
-          propUrl.map((current, index) => {
-            console.log("i do");
-            return (
-              <Card key={current[index]} mediaType="movie" propUrl={current} />
-            );
-          })}
-      </div>
-      <button className="btn-more" onClick={handleMore}>
-        Weiter
-      </button>
-      <Footer />
     </>
   );
 }

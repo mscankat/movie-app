@@ -1,7 +1,8 @@
-import Nav from "./Nav";
-import Card from "./Card";
-import Footer from "./Footer";
+import Nav from "../Nav";
+import Card from "../Card";
+import Footer from "../Footer";
 import { useState } from "react";
+import expand from "../icons/expand.png";
 
 function Trending() {
   const trendingURL =
@@ -18,19 +19,20 @@ function Trending() {
   }
   return (
     <>
-      <Nav />
-      <div className="title">Trending Movies</div>
-      <div className="grid-container">
-        {searchQ.map((current, index) => {
-          return (
-            <Card key={current[index]} propUrl={current} mediaType="movie" />
-          );
-        })}
+      {" "}
+      <div className="main">
+        <Nav />
+        <div className="title">Trending Movies</div>
+        <div className="grid-container">
+          {searchQ.map((current, index) => {
+            return (
+              <Card key={current[index]} propUrl={current} mediaType="movie" />
+            );
+          })}
+        </div>
+        <img className="btn-more" onClick={handleClick} src={expand} />
+        <Footer />{" "}
       </div>
-      <button className="btn-more" onClick={handleClick}>
-        Weiter
-      </button>
-      <Footer />
     </>
   );
 }
