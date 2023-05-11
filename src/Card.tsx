@@ -1,4 +1,3 @@
-import { generateKey } from "./index";
 import { useEffect, useState } from "react";
 import { getData } from "./index";
 import notfound from "./icons/poster-not-found.jpg";
@@ -7,7 +6,7 @@ interface Props {
   propUrl: string;
   mediaType?: string;
   toShow?: number;
-  title?: string;
+  title: string;
   moreButton?: boolean;
 }
 
@@ -17,7 +16,7 @@ function Card({ propUrl, mediaType, toShow, title, moreButton }: Props) {
   const genreUrlTV =
     "https://api.themoviedb.org/3/genre/tv/list?api_key=8eeaa71fd3c82618bcba075c2712eaf2&language=en-US";
 
-  interface response {
+  interface responseData {
     title: string;
     overview: string;
     poster_path: string;
@@ -32,24 +31,28 @@ function Card({ propUrl, mediaType, toShow, title, moreButton }: Props) {
     id: number;
     name: string;
   }
-  const [response, setResponse] = useState<response[]>([]);
+  const [response, setResponse] = useState<responseData[]>([]);
   const [genreListMovie, setGenreListMovie] = useState<genreObject[]>([]);
   const [genreListTV, setGenreListTV] = useState<genreObject[]>([]);
-  const [urlList, setUrlList] = useState<string[]>([propUrl]);
-  const [last, setLast] = useState(false);
+  const [urlList, setUrlList] = useState<string>("");
   useEffect(() => {
+    getData(genreUrlMovie).then((arr) => {
+      setGenreListMovie(arr.genres);
+    });
+    getData(genreUrlTV).then((arr) => {
+      setGenreListTV(arr.genres);
+    });
+  }, []);
+
+  useEffect(() => {
+    setUrlList(propUrl);
     setResponse([]);
-    setUrlList([propUrl]);
-    setLast(false);
   }, [propUrl]);
+
   useEffect(() => {
-    urlList.forEach((current) => {
-      console.log(current);
-      getData(current).then((arr) => {
-        if (arr.results.length < 20) {
-          setLast(true);
-        }
-        const filtered = arr.results.filter((x: response) => {
+    urlList &&
+      getData(urlList).then((arr) => {
+        const filtered = arr.results.filter((x: responseData) => {
           if (
             x.media_type === "tv" ||
             x.media_type === "movie" ||
@@ -58,36 +61,25 @@ function Card({ propUrl, mediaType, toShow, title, moreButton }: Props) {
             return x;
           }
         });
-        setResponse([...response, ...filtered.slice(0, toShow)]);
-      });
-    });
-    console.log(response);
-    getData(genreUrlMovie).then((arr) => {
-      setGenreListMovie(arr.genres);
-    });
-    getData(genreUrlTV).then((arr) => {
-      setGenreListTV(arr.genres);
-    });
-    console.log(propUrl);
-  }, [urlList, propUrl]);
 
-  //button
+        setResponse((currentResponse) => {
+          return [...currentResponse, ...filtered.slice(0, toShow)];
+        });
+      });
+  }, [urlList]);
+
+  //button;
   function handleClick() {
-    if (last) {
-      return;
-    }
-    const reqUrl = new URL(urlList[urlList.length - 1]);
+    const reqUrl = new URL(urlList);
     const pageNumber = reqUrl.searchParams.get("page");
     reqUrl.searchParams.set("page", Number(pageNumber) + 1 + "");
 
-    setUrlList([...urlList, reqUrl.href]);
-    console.log(reqUrl.href);
+    setUrlList(reqUrl.href);
   }
 
   //No Result case
   const pageUrl = new URL(propUrl);
   if (response.length === 0 && pageUrl.searchParams.get("page") === "1") {
-    console.log(response);
     return <h1 className="no-result">No Result</h1>;
   }
   return (
@@ -96,9 +88,7 @@ function Card({ propUrl, mediaType, toShow, title, moreButton }: Props) {
       <div className="grid-container">
         {response.length > 0 &&
           response.map((current, index) => {
-            //get and combine genres
             let genreText: string[] = [];
-            // console.log(current.media_type);
             current.genre_ids &&
               current.genre_ids.length > 0 &&
               current.genre_ids.forEach((x, i) => {
@@ -117,7 +107,7 @@ function Card({ propUrl, mediaType, toShow, title, moreButton }: Props) {
               });
 
             return (
-              <div className="img-wrapper" key={generateKey()}>
+              <div className="img-wrapper" key={current.id + title}>
                 <img
                   className="image"
                   src={
@@ -137,7 +127,7 @@ function Card({ propUrl, mediaType, toShow, title, moreButton }: Props) {
                     </span>
                     <span className="genre">
                       {genreText.map((x, i) => {
-                        return <span key={generateKey()}>{x}</span>;
+                        return <span key={current.id * (i + 1)}>{x}</span>;
                       })}
                     </span>
                     <span className="date">

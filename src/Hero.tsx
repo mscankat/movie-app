@@ -46,6 +46,7 @@ function Hero({ imagePath }: props) {
     genre_ids: number[];
     release_date: string;
     backdrop_path: string;
+    id: number;
   }
 
   const [hero, setHero] = useState<data[]>([]);
@@ -71,7 +72,7 @@ function Hero({ imagePath }: props) {
     >
       {hero.map((current) => {
         return (
-          <div className="background" key={generateKey()}>
+          <div className="background" key={current.id}>
             <img
               src={imagePath + current.backdrop_path}
               className="img-hero"

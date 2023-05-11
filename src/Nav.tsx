@@ -16,7 +16,6 @@ function Nav() {
     if (!location.pathname.includes("search")) {
       return navigate(`/search?q=${params.q}`);
     }
-    console.log(usrInput);
     setSearchParams(params);
   }
   //for search button

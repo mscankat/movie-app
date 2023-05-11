@@ -58,7 +58,6 @@ function Movies() {
         setPropUrl(urlGenre.href);
         break;
     }
-    console.log(e.target.innerHTML);
   }
 
   return (

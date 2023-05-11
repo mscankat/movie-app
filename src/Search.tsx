@@ -13,8 +13,6 @@ function Search() {
   useEffect(() => {
     query = searchParams.get("q");
     setUrl(searchPath);
-    // console.log(searchPath);
-    console.log(url);
   }, [searchParams, query]);
 
   return (

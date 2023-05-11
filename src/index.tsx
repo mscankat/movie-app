@@ -15,9 +15,6 @@ import TvUpcoming from "./routes/TvUpcoming";
 import TvTop from "./routes/TvTop";
 import Error from "./Error";
 
-const api_key = "8eeaa71fd3c82618bcba075c2712eaf2";
-const imagePath = "https://image.tmdb.org/t/p/original";
-const mediaType = ["movie", "TV Series"];
 export async function getData(url: string): Promise<any> {
   let result;
   await fetch(url)
@@ -29,7 +26,7 @@ export async function getData(url: string): Promise<any> {
     });
   return result;
 }
-export function generateKey() {
+export function generateKey(pre: string) {
   return crypto.randomUUID();
 }
 
@@ -85,11 +82,7 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
-root.render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
-);
+root.render(<RouterProvider router={router} />);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
