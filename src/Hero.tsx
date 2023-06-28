@@ -1,7 +1,6 @@
 import { getData } from "./index";
 import { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
-import { generateKey } from "./index";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 //for styling purposes
@@ -82,7 +81,7 @@ function Hero({ imagePath }: props) {
               <span className="hero-title">{current.title}</span>
               <span className="hero-type">{current.media_type}</span>
               <span className="hero-date">
-                {current && current.release_date.split("-")[0]}
+                {current.release_date && current.release_date.split("-")[0]}
               </span>
               <span className="hero-overview">{current.overview}</span>
             </div>
