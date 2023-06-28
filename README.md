@@ -3,7 +3,7 @@
 ## Description
 A movie database app 
 
-I have deployed it here: **[Check it out](https://msc-movie.netlify.app/)**
+I have deployed it here: **[Check it out](https://movie-app-msc.vercel.app/)**
 
 ## Installation Scripts
 
