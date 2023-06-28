@@ -82,7 +82,7 @@ function Hero({ imagePath }: props) {
               <span className="hero-title">{current.title}</span>
               <span className="hero-type">{current.media_type}</span>
               <span className="hero-date">
-                {current.release_date.split("-")[0]}
+                {current && current.release_date.split("-")[0]}
               </span>
               <span className="hero-overview">{current.overview}</span>
             </div>
